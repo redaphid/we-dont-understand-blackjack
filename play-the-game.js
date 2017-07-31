@@ -10,13 +10,23 @@ function playTheGame() {
 
   game.dispatch(actions.deal())
 
+  function getHandCount(gameState) {
+    if(gameState.handInfo.right.cards.length > 0)
+      return 2
+
+    return 1
+  }
+
   function gameStateToStrategy(gameState) {
+    var side = 'right'
+    if(gameState.stage === 'player-turn-left')
+      side = 'left'
     return [
         _.map(gameState.handInfo.right.cards, 'value'),
         gameState.dealerCards[0].value,
-        1,
+        getHandCount(gameState),
         false,
-        {offerInsurance}
+        {offerInsurance, maxSplitHands: 2}
       ]
   }
 

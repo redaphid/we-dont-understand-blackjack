@@ -1,11 +1,10 @@
 _           = require('lodash')
 playTheGame = require('./play-the-game')
-const times = 10
-
+const numberOfBetters = 10000
 function manySmallTimes() {
-  return _.times(times, playTheGame)
+  return _.times(10, playTheGame)
 }
 
-const singleBetters = _.map(_.times(1000, playTheGame), (result) => result >= 10)
+const singleBetters = _.filter(_.map(_.times(numberOfBetters, playTheGame), (result) => result >= 10))
 
-console.log(singleBetters)
+console.log(`Single Betters that won: ${singleBetters.length}`)
