@@ -62,6 +62,7 @@ function playTheGame() {
   }
 
   var gameState = game.getState()
+  debug(JSON.stringify(_.omit(gameState, 'deck'), null, 2))
   return (gameState.wonOnRight + gameState.wonOnLeft) - gameState.finalBet
 }
 module.exports = playTheGame

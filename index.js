@@ -1,20 +1,20 @@
 _           = require('lodash')
 playTheGame = require('./play-the-game')
-const NUMBER_OF_BETTERS = 1000
-const SMALL_TIMES = 100
+const NUMBER_OF_BETTERS = 10000
+const SMALL_TIMES = 10
 
 function manySmallTimes() {
-  return _.mean(_.times(SMALL_TIMES, playTheGame))
+  const winnings = _.mean(_.map(_.times(SMALL_TIMES, playTheGame), (result) => result/SMALL_TIMES))
+  return winnings
 }
 
 function getWinners(strategy) {
   const results = _.times(NUMBER_OF_BETTERS, strategy)
-  // console.log(results)
-  return _.filter(results, (winnings) => winnings >= 0).length
+  return _.filter(results, (winnings) => winnings > 0).length
 }
 
 const singleBetters = getWinners(playTheGame)
-const multiBetters = getWinners(manySmallTimes)
+const multipleBetters = getWinners(manySmallTimes)
 
-console.log(`Single Betters that won: ${singleBetters}`)
-console.log(`Multiple Betters that won: ${multiBetters}`)
+console.log(`Single Bet Wins: ${singleBetters/NUMBER_OF_BETTERS * 100}%`)
+console.log(`Multiple Bet Wins: ${multipleBetters/NUMBER_OF_BETTERS * 100}%`)
