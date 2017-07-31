@@ -62,6 +62,6 @@ function playTheGame() {
   }
 
   var gameState = game.getState()
-  return (gameState.wonOnRight + gameState.wonOnLeft) >= gameState.finalBet
+  return (gameState.wonOnRight + gameState.wonOnLeft) - gameState.finalBet
 }
 module.exports = playTheGame

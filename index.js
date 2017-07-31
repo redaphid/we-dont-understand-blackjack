@@ -1,13 +1,14 @@
 _           = require('lodash')
 playTheGame = require('./play-the-game')
-const numberOfBetters = 1000
+const NUMBER_OF_BETTERS = 100
+const SMALL_TIMES = 10
 
 function manySmallTimes() {
-  return _.mean(_.times(10, playTheGame))
+  return _.mean(_.times(SMALL_TIMES, playTheGame))
 }
 
 function getWinners(strategy) {
-  return _.filter(_.times(numberOfBetters, strategy)).length
+  return _.filter(_.times(NUMBER_OF_BETTERS, strategy), (winnings) => winnings > 0).length
 }
 
 const singleBetters = getWinners(playTheGame)
