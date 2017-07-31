@@ -4,7 +4,7 @@ const NUMBER_OF_BETTERS = 10000
 const SMALL_TIMES = 10
 
 function manySmallTimes() {
-  const winnings = _.mean(_.map(_.times(SMALL_TIMES, playTheGame), (result) => result/SMALL_TIMES))
+  const winnings = _.mean(_.times(SMALL_TIMES, playTheGame))
   return winnings
 }
 
