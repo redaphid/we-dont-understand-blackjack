@@ -11,7 +11,7 @@ function playTheGame() {
   game.dispatch(actions.deal())
 
   function getHandCount(gameState) {
-    if(gameState.handInfo.right.cards.length > 0)
+    if(!_.isEmpty(gameState.handInfo.left))
       return 2
 
     return 1
@@ -55,7 +55,6 @@ function playTheGame() {
       console.log(JSON.stringify(_.omit(gameState, 'deck'), null, 2))
       throw new Error('We fucked up')
     }
-    // console.log(JSON.stringify(_.omit(gameState, 'deck'), null, 2))
 
     var strategyOptions = gameStateToStrategy(gameState)
     var action = strategy.GetRecommendedPlayerAction.apply(this, strategyOptions)
@@ -63,6 +62,6 @@ function playTheGame() {
   }
 
   var gameState = game.getState()
-  return gameState.wonOnRight
+  return (gameState.wonOnRight + gameState.wonOnLeft) >= gameState.finalBet
 }
 module.exports = playTheGame
