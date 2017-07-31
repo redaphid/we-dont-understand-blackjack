@@ -26,15 +26,25 @@ function playTheGame() {
       offerInsurance = false
       return game.dispatch(actions.insurance(false))
     }
-    console.log(_.keys(actions))
-    console.log(actions[action])
-    return game.dispatch(actions[action](0))
+
+    console.log(`${game.getState().stage} -> ${action}`)
+
+    if(game.getState().stage === 'player-turn-left')
+      return game.dispatch(actions[action]({position: 'left'}))
+
+    game.dispatch(actions[action]({position: 'right'}))
   }
 
   var gameState = game.getState()
+  var iterations = 0
   while(gameState.stage !== 'done') {
+    iterations++
     var gameState = game.getState()
-    console.log(JSON.stringify(_.omit(gameState, 'deck'), null, 2))
+    if(iterations > 10){
+      console.log(JSON.stringify(_.omit(gameState, 'deck'), null, 2))
+      throw new Error('We fucked up')
+    }
+    // console.log(JSON.stringify(_.omit(gameState, 'deck'), null, 2))
 
     var strategyOptions = gameStateToStrategy(gameState)
     var action = strategy.GetRecommendedPlayerAction.apply(this, strategyOptions)
@@ -42,7 +52,6 @@ function playTheGame() {
   }
 
   var gameState = game.getState()
-  console.log(JSON.stringify(_.omit(gameState, 'deck'), null, 2))
   return gameState.wonOnRight
 }
 module.exports = playTheGame

@@ -1,7 +1,11 @@
 _           = require('lodash')
 playTheGame = require('./play-the-game')
+const times = 10
 
-const budget = 10
-const smallBetValue = 2
-const results = _.times(10, playTheGame)
-console.log(results)
+function manySmallTimes() {
+  return _.times(times, playTheGame)
+}
+
+const singleBetters = _.map(_.times(1000, playTheGame), (result) => result >= 10)
+
+console.log(singleBetters)
