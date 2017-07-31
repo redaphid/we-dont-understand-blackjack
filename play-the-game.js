@@ -3,7 +3,7 @@ const strategy  = require('blackjack-strategy')
 const _         = require('lodash')
 const actions   = blackjack.actions
 const Game      = blackjack.Game
-
+const debug     = require('debug')('blackjack')
 function playTheGame() {
   const game = new Game()
   var offerInsurance = true
@@ -32,13 +32,13 @@ function playTheGame() {
   }
 
   function performAction(action) {
-    console.log(action)
+    debug(action)
     if(action === 'noinsurance') {
       offerInsurance = false
       return game.dispatch(actions.insurance(false))
     }
 
-    console.log(`${game.getState().stage} -> ${action}`)
+    debug(`${game.getState().stage} -> ${action}`)
 
     if(game.getState().stage === 'player-turn-left')
       return game.dispatch(actions[action]({position: 'left'}))
