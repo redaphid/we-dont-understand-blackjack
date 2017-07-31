@@ -21,8 +21,9 @@ function playTheGame() {
     var side = 'right'
     if(gameState.stage === 'player-turn-left')
       side = 'left'
+
     return [
-        _.map(gameState.handInfo.right.cards, 'value'),
+        _.map(gameState.handInfo[side].cards, 'value'),
         gameState.dealerCards[0].value,
         getHandCount(gameState),
         false,
